@@ -1,0 +1,1 @@
+public interface SimulacionRepository extends JpaRepository<Simulacion, Long> {}
