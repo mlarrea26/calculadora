@@ -1,0 +1,21 @@
+@Entity
+public class Simulacion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String nombres;
+    private String cedula;
+    private String email;
+    private String celular;
+    
+    private double capitalInicial;
+    private int periodosPorAño;
+    private double tasaInteres; // en decimal
+    private double tiempoAnios;
+    private double montoFinal;
+    private double interesGanado;
+    private String categoria;
+    
+    // getters y setters
+}
