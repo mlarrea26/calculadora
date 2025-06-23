@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Calculadora de Inversión</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+    <h2>Calculadora de Inversión Compuesta</h2>
+    <form th:action="@{/simular}" th:object="${simulacion}" method="post" class="row g-3">
+        <div class="col-md-6">
+            <label>Nombres</label><input type="text" th:field="*{nombres}" class="form-control" required>
+            <label>Cédula</label><input type="text" th:field="*{cedula}" class="form-control" required>
+            <label>Email</label><input type="email" th:field="*{email}" class="form-control" required>
+            <label>Celular</label><input type="text" th:field="*{celular}" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+            <label>Capital Inicial (USD)</label><input type="number" min="100" step="0.01" th:field="*{capitalInicial}" class="form-control" required>
+            <label>Períodos por año</label>
+            <select th:field="*{periodosPorAño}" class="form-control" required>
+                <option value="2">Semestral (2)</option>
+                <option value="4">Trimestral (4)</option>
+                <option value="12">Mensual (12)</option>
+            </select>
+            <label>Tiempo (años)</label><input type="number" min="1" step="0.1" th:field="*{tiempoAnios}" class="form-control" required>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary">Calcular</button>
+        </div>
+        <div class="text-danger" th:if="${error}" th:text="${error}"></div>
+    </form>
+
+    <hr>
+
+    <h4>Historial de Simulaciones</h4>
+    <table class="table table-bordered table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Nombre</th><th>Cédula</th><th>Email</th><th>Celular</th>
+                <th>Capital</th><th>Tasa</th><th>Tiempo</th><th>Valor Futuro</th>
+                <th>Interés Ganado</th><th>Categoría</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="s : ${lista}">
+                <td th:text="${s.nombres}"></td>
+                <td th:text="${s.cedula}"></td>
+                <td th:text="${s.email}"></td>
+                <td th:text="${s.celular}"></td>
+                <td th:text="${s.capitalInicial}"></td>
+                <td th:text="${s.tasaInteres}"></td>
+                <td th:text="${s.tiempoAnios}"></td>
+                <td th:text="${s.montoFinal}"></td>
+                <td th:text="${s.interesGanado}"></td>
+                <td th:text="${s.categoria}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
