@@ -1,0 +1,23 @@
+@Controller
+public class SimulacionController {
+
+    @Autowired
+    private SimulacionService servicio;
+
+    @GetMapping("/")
+    public String formularioSimulacion(Model model) {
+        model.addAttribute("simulacion", new Simulacion());
+        model.addAttribute("lista", servicio.obtenerSimulaciones());
+        return "index";
+    }
+
+    @PostMapping("/simular")
+    public String simular(@ModelAttribute Simulacion simulacion, Model model) {
+        if (simulacion.getCapitalInicial() < 100) {
+            model.addAttribute("error", "El capital inicial debe ser mayor a $100");
+            return "index";
+        }
+        servicio.guardarSimulacion(simulacion);
+        return "redirect:/";
+    }
+}
